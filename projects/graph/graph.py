@@ -23,22 +23,21 @@ class Graph:
 
     def bft(self, starting_vertex):
         #Print each vertex in breadth-first order beginning from starting_vertex.
-        
         # Create an empty set to store visited nodes.
-        visited = set()
         # Create an empty Queue and enqueue the starting vertex.
+        # While the queue is not empty..
+            # Dequeue the first vertex from the queue
+            # if that vertex has not been visited...
+                # Mark it as visited
+                # Then add all of its neighbors to the back of the queue.
+        visited = set()
         q = Queue()
         q.enqueue(starting_vertex)
-        # While the queue is not empty..
         while q.size() > 0:
-            # Dequeue the first vertex from the queue
             v = q.dequeue()
-            # if that vertex has not been visited...
             if v not in visited:
-                # Mark it as visited
                 visited.add(v)
                 print(v)
-                # Then add all of its neighbors to the back of the queue.
                 for neighbor in self.vertices[v]:
                     q.enqueue(neighbor)
 

@@ -43,6 +43,13 @@ class Graph:
 
     def dft(self, starting_vertex):
         # Print each vertex in depth-first order beginning from starting_vertex.
+        # Create an empty set to store visited nodes.
+        # Create an empty Stack and push the starting vertex.
+        # While the Stack is not empty..
+            # pop the first vertex from the stack
+            # if that vertex has not been visited...
+                # Mark it as visited
+                # Then add all of its neighbors to the back of the stack.
         visited = set()
         stack = Stack()
         stack.push(starting_vertex)

@@ -7,7 +7,7 @@ class Graph:
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
         self.vertices = {}
-        self.visited = set()
+
     def add_vertex(self, vertex):
         # Add a vertex to the graph.
 
@@ -20,7 +20,6 @@ class Graph:
             self.vertices[v1].add(v2)
         else:
             raise IndexError('That vertex does not exist.')
-
 
     def bft(self, starting_vertex):
         #Print each vertex in breadth-first order beginning from starting_vertex.
@@ -64,24 +63,26 @@ class Graph:
                 for neighbor in self.vertices[vertex]:
                     stack.push(neighbor)
 
-    def dft_recursive(self, starting_vertex):
+    def dft_recursive(self, starting_vertex, visited=None):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         This should be done using recursion.
         """
+        if visited is None:
+            visited = set()
         # Base case, if current vertex has been visited.
-        if starting_vertex in self.visited:
+        if starting_vertex in visited:
             return
         # if we haven't visited...
-        if starting_vertex not in self.visited:
+        if starting_vertex not in visited:
             # print that vertex
             print(starting_vertex)
             # add vertex to visited
-            self.visited.add(starting_vertex)
+            visited.add(starting_vertex)
         # for each neighbor in the current vertex, run dft_recursive at that neighbor.
             for neighbor in self.vertices[starting_vertex]:
-                self.dft_recursive(neighbor)
+                self.dft_recursive(neighbor, visited)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -116,8 +117,6 @@ class Graph:
                     path_copy = path.copy()
                     path_copy.append(neighbor)
                     q.enqueue(path_copy)
-
-
 
     def dfs(self, starting_vertex, destination_vertex):
         """

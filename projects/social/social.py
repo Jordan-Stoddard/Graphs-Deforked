@@ -1,6 +1,6 @@
 import random
 import math
-import time
+from util import Stack, Queue
 
 class User:
     def __init__(self, name):
@@ -75,8 +75,6 @@ class SocialGraph:
                         else:
                             self.addFriendship(user, randomFriend)
                             current_num_friendships += 2
-
-    def getAllSocialPaths(self, userID):
         """
         Takes a user's userID as an argument
 
@@ -85,18 +83,30 @@ class SocialGraph:
 
         The key is the friend's ID and the value is the path.
         """
+    def getAllSocialPaths(self, userID):
         visited = {}  # Note that this is a dictionary, not a set
-        # !!!! IMPLEMENT ME
+        q = Queue()
+        q.enqueue([userID])
+
+        while q.size() > 0:
+            path = q.dequeue()
+            v = path[-1]
+            if v not in visited:
+                visited.update({v: path})
+                for neighbor in self.friendships[v]:
+                    if neighbor not in visited:
+                        path_copy = path.copy()
+                        path_copy.append(neighbor)
+                        q.enqueue(path_copy)
         return visited
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populateGraph(10, 2)
-    print(sg.users)
     print(sg.friendships)
-    # connections = sg.getAllSocialPaths(1)
-    # print(connections)
+    connections = sg.getAllSocialPaths(1)
+    print(connections)
 
 
 

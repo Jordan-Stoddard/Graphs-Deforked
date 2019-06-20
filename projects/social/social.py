@@ -1,5 +1,6 @@
 import random
 import math
+import time
 from util import Stack, Queue
 
 class User:
@@ -94,19 +95,52 @@ class SocialGraph:
             if v not in visited:
                 visited.update({v: path})
                 for neighbor in self.friendships[v]:
-                    if neighbor not in visited:
+                    # if neighbor not in visited:
                         path_copy = path.copy()
                         path_copy.append(neighbor)
                         q.enqueue(path_copy)
         return visited
 
 
+        # def populateGraphLinear(self, numUsers, avgFriendships):
+        # """
+        # Takes a number of users and an average number of friendships
+        # as arguments
+
+        # Creates that number of users and a randomly distributed friendships
+        # between those users.
+
+        # The number of users must be greater than the average number of friendships.
+        # """
+        # # Reset graph
+        # self.lastID = 0
+        # self.users = {}
+        # self.friendships = {}
+        # # !!!! IMPLEMENT ME
+        # if numUsers < avgFriendships:
+        #     return 'Number of users must be greater than avg friendships.'
+
+        # # Add users
+        # # Creates a social graph 
+        # for i in range(0, numUsers):
+        #     self.addUser(i)
+
+        # targetFriendships = numUsers * avgFriendships
+        # totalFriendships = 0
+        # collisions = 0
+        # while totalFriendships < targetFriendships:
+        #     userID = random.randint(1, self.lastID)
+
+
+
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populateGraph(10, 2)
-    print(sg.friendships)
+    start_time = time.time()
+    sg.populateGraph(20, 5)
+    end_time = time.time()
+    print (f"Runtime: {end_time - start_time} seconds")
     connections = sg.getAllSocialPaths(1)
-    print(connections)
+    # print(connections)
 
 
 

@@ -1,0 +1,46 @@
+Create a graph of rooms with exits.
+Set the starting room's exits list as the keys of the first room in exitGraph.
+Set the value of each exit key in exitGraph's first room as '?'
+Store the current room as a room in the graph of exits.
+
+loop through current room, if current exit in current room is '?' travel in that
+direction.
+
+Append the direction moved to the traversal path.
+
+Set the value of the new current_room.id to be the value of that direction
+in the previous room.
+
+Add the new current room to the graph of exits, with the new current room's
+list of exits stored as a dictionary with '?'
+
+If the direction moved is north, set the new current room's south to be the old
+current room.
+If the direction moved is south, set the new current room's north to be the old
+current room.
+If the direction moved is east, set the new current room's west to be the old
+current room.
+If the direction moved is west, set the new current room's east to be the old
+current room.
+
+traversalPath = ['n']
+{0: {n: 1, s: '?', e: '?', w: '?'} 1: {n: '?', s: 0}}
+
+repeat the above unless current_room has no directions with '?'
+
+traversalPath = ['n', 'n']
+{0: {n: 1, s: '?', e: '?', w: '?'}, 1: {n: 2, s: 0}, 2: {s: 1}}
+
+Once in a room with no '?', use a BFS to find a path to the nearest room without
+a '?'.
+['s', 's']
+
+loop through shortest path, and move in the direction of that index,
+and add that index to the traversalPath.
+
+Loop through the room you moved back to and repeat.
+
+If BFS does not return a path with any unexplored rooms, break.
+
+
+

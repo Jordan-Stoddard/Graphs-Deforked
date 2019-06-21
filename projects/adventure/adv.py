@@ -22,7 +22,7 @@ world = World()
 world.loadGraph(roomGraph)
 
 # UNCOMMENT TO VIEW MAP
-# world.printRooms()
+world.printRooms()
 player = Player("Name", world.startingRoom)
 
 traversalPath = []
@@ -76,23 +76,22 @@ while looping:
                 q.enqueue([player.currentRoom.id])
 
                 while q.size() > 0:
-                    if '?' in temp_room.values():
-                        break
-
                     path = q.dequeue()
                     v = path[-1]
+
+                    if '?' in exit_graph[v].values():
+                        break
 
                     if v not in visited:
                         visited.add(v)
 
                         for neighbor in exit_graph[v]:
-                            if temp_room[neighbor] not in visited:
+                            if exit_graph[v][neighbor] not in visited:
                                 path_copy = path.copy()
-                                path_copy.append(temp_room[neighbor])
+                                path_copy.append(exit_graph[v][neighbor])
                                 q.enqueue(path_copy)
-                                temp_room = exit_graph[temp_room[neighbor]]
+
                 unexplored = False
-                path = q.dequeue()
                 for room in path:
                     if room == player.currentRoom.id:
                         pass

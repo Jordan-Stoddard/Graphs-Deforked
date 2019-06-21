@@ -6,16 +6,6 @@ from util import Stack, Queue
 
 import random
 
-# helper functions
-# def has_been_explored(current_room):
-#     # If object_room.values() does not contain a number,
-#     # return the object room.
-#     # else return the graph room.
-#     boolean = False
-#     for ex in current_room:
-#         if isinstance(ex, int):
-#             boolean = True
-#     return boolean
 
 # Load world
 world = World()
@@ -39,32 +29,34 @@ unexplored = None
 looping = True
 while looping:
     current_room = exit_graph[room_id]
-    temp_room = exit_graph[room_id]
     for direction in current_room:
-        if current_room[direction] == '?':
-            player.travel(direction)
-            traversalPath.append(f'{direction}') 
-            if player.currentRoom.id in exit_graph:
-                pass
-            else:
-                exit_graph[player.currentRoom.id] = {i : '?' for i in player.currentRoom.getExits()}
-            exit_graph[room_id][direction] = player.currentRoom.id
-            if direction == 'n':
-                exit_graph[player.currentRoom.id]['s'] = room_id
-                room_id = player.currentRoom.id
-                break
-            if direction == 's':
-                exit_graph[player.currentRoom.id]['n'] = room_id
-                room_id = player.currentRoom.id
-                break
-            if direction == 'e':
-                exit_graph[player.currentRoom.id]['w'] = room_id
-                room_id = player.currentRoom.id
-                break
-            if direction == 'w':
-                exit_graph[player.currentRoom.id]['e'] = room_id
-                room_id = player.currentRoom.id
-                break
+        try:
+            if current_room[direction] == '?':
+                player.travel(direction)
+                traversalPath.append(f'{direction}')
+                if player.currentRoom.id in exit_graph:
+                    pass
+                else:
+                    exit_graph[player.currentRoom.id] = {i : '?' for i in player.currentRoom.getExits()}
+                exit_graph[room_id][direction] = player.currentRoom.id
+                if direction == 'n':
+                    exit_graph[player.currentRoom.id]['s'] = room_id
+                    room_id = player.currentRoom.id
+                    break
+                if direction == 's':
+                    exit_graph[player.currentRoom.id]['n'] = room_id
+                    room_id = player.currentRoom.id
+                    break
+                if direction == 'e':
+                    exit_graph[player.currentRoom.id]['w'] = room_id
+                    room_id = player.currentRoom.id
+                    break
+                if direction == 'w':
+                    exit_graph[player.currentRoom.id]['e'] = room_id
+                    room_id = player.currentRoom.id
+                    break
+        except KeyError:
+            pass
         if '?' not in current_room.values():
             for room in exit_graph:
                 if '?' in exit_graph[room].values():
